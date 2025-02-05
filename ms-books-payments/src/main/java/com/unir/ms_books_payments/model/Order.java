@@ -1,5 +1,6 @@
 package com.unir.ms_books_payments.model;
 
+import com.unir.ms_books_payments.dto.OrderRequestDto;
 import jakarta.persistence.*;
 import lombok.*;
 

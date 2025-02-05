@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,4 +49,58 @@ public class PaymentService implements IPaymentService {
 
     return respuesta;
   }
+
+  @Override
+  public HashMap<String, Object> getOrderById(Long id) {
+    HashMap<String, Object> respuesta = new HashMap<>();
+
+    Optional<Order> order = orderRepository.findById(id);
+    if (order.isEmpty()) {
+      respuesta.put("code", 204);
+      respuesta.put("message", "Book not found");
+    } else {
+      respuesta.put("code", 200);
+      respuesta.put("message", order.get());
+    }
+    return respuesta;
+  }
+
+  @Override
+  public HashMap<String, Object> getOrders() {
+    HashMap<String, Object> respuesta = new HashMap<>();
+
+    List<Order> order = orderRepository.findAll();
+    if (order.isEmpty()) {
+      respuesta.put("code", 204);
+      respuesta.put("message", "Book not found");
+    } else {
+      respuesta.put("code", 200);
+      respuesta.put("message", order);
+    }
+    return respuesta;
+  }
+
+  @Override
+  public HashMap<String, Object> deleteOrder(Long id) {
+    HashMap<String, Object> respuesta = new HashMap<>();
+
+    try {
+      Optional<Order> bookExist = orderRepository.findById(id);
+      if (bookExist.isPresent()) {
+        orderRepository.deleteById(id);
+
+        respuesta.put("code", 200);
+        respuesta.put("message", "Book deleted successfully");
+      } else {
+        respuesta.put("code", 404);
+        respuesta.put("message", "Book not found");
+      }
+    } catch (Exception e) {
+      respuesta.put("code", 500);
+      respuesta.put("message", e.getMessage());
+    }
+
+    return respuesta;
+  }
+
 }

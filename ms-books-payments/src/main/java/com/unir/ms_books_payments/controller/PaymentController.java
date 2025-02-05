@@ -36,4 +36,25 @@ public class PaymentController {
     return commonService.getResponse(respuesta);
   }
 
+  @GetMapping("/{id}")
+  public ResponseEntity<?> getPaymentById(@PathVariable Long id) {
+    HashMap<String, Object> respuesta = paymentService.getOrderById(id);
+
+    return commonService.getResponse(respuesta);
+  }
+
+  @GetMapping()
+  public ResponseEntity<?> getPayments() {
+    HashMap<String, Object> respuesta = paymentService.getOrders();
+
+    return commonService.getResponse(respuesta);
+  }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<?> deleteBook(@PathVariable Long id) {
+    HashMap<String, Object> respuesta = paymentService.deleteOrder(id);
+
+    return commonService.getResponse(respuesta);
+  }
+
 }

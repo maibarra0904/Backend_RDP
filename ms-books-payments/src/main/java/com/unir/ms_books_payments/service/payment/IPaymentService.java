@@ -6,4 +6,7 @@ import java.util.HashMap;
 
 public interface IPaymentService {
   HashMap<String, Object> saveNewOrder(OrderRequestDto newOrder);
+  HashMap<String, Object> getOrderById(Long id);
+  HashMap<String, Object> getOrders();
+  HashMap<String, Object> deleteOrder(Long id);
 }
