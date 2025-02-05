@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: ms-books-payments
+
+  datasource:
+    url: jdbc:h2:mem:payments-db;Mode=Mysql
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+
+server:
+  port: 8092
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_HOST:http://localhost:8761/eureka}
+  instance:
+    prefer-ip-address: false
+    hostname: ms-books-payments
+#
+getBook:
+  url: http://ms-books-catalogue/books/%s
